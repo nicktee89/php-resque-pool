@@ -120,6 +120,14 @@ class Configuration
         if ($this->environment && isset($this->queueConfig[$this->environment])) {
             $this->queueConfig = $this->queueConfig[$this->environment] + $this->queueConfig;
         }
+
+        if (isset($this->queueConfig['app_include'])) {
+            $require_file = $this->queueConfig['app_include']['file'];
+            if (file_exists($require_file)) {
+                require_once $require_file;
+            }
+        }
+
         // filter out the environments
         $this->queueConfig = array_filter($this->queueConfig, 'is_integer');
         $this->logger->log("Configured queues: " . implode(" ", $this->knownQueues()));
