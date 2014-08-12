@@ -112,7 +112,8 @@ class Configuration
     }
 
     public function initialize()
-    {
+    {   
+        echo 'here';
         if (!$this->queueConfig) {
             $this->chooseConfigFile();
             $this->loadQueueConfig();
@@ -120,9 +121,10 @@ class Configuration
         if ($this->environment && isset($this->queueConfig[$this->environment])) {
             $this->queueConfig = $this->queueConfig[$this->environment] + $this->queueConfig;
         }
-
+        var_dump($this->queueConfig);
         if (isset($this->queueConfig['app_include'])) {
             $require_file = $this->queueConfig['app_include']['file'];
+            echo $require_file;
             if (file_exists($require_file)) {
                 require_once $require_file;
             }
