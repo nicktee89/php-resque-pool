@@ -128,6 +128,10 @@ class Configuration
             }
         }
 
+        if (isset($this->queueConfig['redis_backend'])) {
+            \Resque::setBackend($this->queueConfig['redis_backend']);    
+        }
+
         // filter out the environments
         $this->queueConfig = array_filter($this->queueConfig, 'is_integer');
         $this->logger->log("Configured queues: " . implode(" ", $this->knownQueues()));
