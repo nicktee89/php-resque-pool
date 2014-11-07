@@ -12,6 +12,12 @@ class WorkLogger extends \Psr\Log\AbstractLogger
 	public $output;
 	public function __construct($verbose = false, $output = false) {
 		$this->verbose = $verbose;
+		if ($output === false) {
+			$this->output = STDOUT;
+		} else {
+			$this->output = fopen($output, 'a+');
+		}
+		
 		$this->output = $output? $output : STDOUT;
 	}
 
