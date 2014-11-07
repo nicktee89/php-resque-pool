@@ -37,13 +37,12 @@ class Pool
         $this->logger = $config->logger;
         $this->workLogger = $config->workLogger;
         $this->platform = $config->platform;
-
-
     }
 
     public function start()
     {
         $this->config->initialize();
+        $this->logger = $this->config->logger;
         $this->logger->procline('(starting)');
         $this->platform->trapSignals(self::$QUEUE_SIGS);
         $this->maintainWorkerCount();
