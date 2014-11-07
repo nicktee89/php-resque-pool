@@ -17,8 +17,6 @@ class WorkLogger extends \Psr\Log\AbstractLogger
 		} else {
 			$this->output = fopen($output, 'a+');
 		}
-
-		$this->output = $output? $output : STDOUT;
 	}
 
 	/**
