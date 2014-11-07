@@ -140,6 +140,7 @@ class Configuration
 
          if (isset($this->queueConfig['log_path'])) {
             $this->logpath = $this->queueConfig['log_path'];
+            $this->logger->log("Loading Log Path: {$this->logpath}");
         }
 
         if (isset($this->queueConfig['redis_backend'])) {

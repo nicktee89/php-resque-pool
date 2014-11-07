@@ -292,8 +292,10 @@ class Pool
         $queues = explode(',', $queues);
         $class = $this->config->workerClass;
         $worker = new $class($queues);
-        $worker->setLogger($this->workLogger);
-
+        if ($this->workLogger) {
+            $worker->setLogger($this->workLogger);
+        }
+        
         return $worker;
     }
 }
