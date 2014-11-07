@@ -10,7 +10,7 @@ class WorkLogger extends \Psr\Log\AbstractLogger
 {
 	public $verbose;
 	public $output;
-	public function __construct($verbose = true, $output = false) {
+	public function __construct($verbose = false, $output = false) {
 		$this->verbose = $verbose;
 		if ($output === false) {
 			$this->output = STDOUT;

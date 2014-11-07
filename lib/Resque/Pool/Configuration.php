@@ -118,7 +118,7 @@ class Configuration
             throw new \InvalidArgumentException('Unknown $config argument passed');
         }
 
-        $this->workLogger = $worklogger ?: new WorkLogger(true, $this->logpath);
+        $this->workLogger = $worklogger ?: new WorkLogger(false, $this->logpath);
     }
 
     public function initialize()
@@ -141,7 +141,7 @@ class Configuration
          if (isset($this->queueConfig['log_path'])) {
             $this->logpath = $this->queueConfig['log_path'];
             $this->logger->log("Loading Log Path: {$this->logpath}");
-            $this->workLogger = new WorkLogger(true, $this->logpath);
+            $this->workLogger = new WorkLogger(false, $this->logpath);
         }
 
         if (isset($this->queueConfig['redis_backend'])) {

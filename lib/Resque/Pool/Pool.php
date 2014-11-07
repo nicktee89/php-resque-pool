@@ -41,8 +41,6 @@ class Pool
 
     public function start()
     {
-        $this->config->initialize();
-        $this->logger = $this->config->logger;
         $this->logger->procline('(starting)');
         $this->platform->trapSignals(self::$QUEUE_SIGS);
         $this->maintainWorkerCount();
