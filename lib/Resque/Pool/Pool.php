@@ -24,6 +24,8 @@ class Pool
      */
     private $logger;
 
+    private $workLogger;
+
     /**
      * @param [queues => [pid => true]]
      */
@@ -33,7 +35,10 @@ class Pool
     {
         $this->config = $config;
         $this->logger = $config->logger;
+        $this->workLogger = $config->workLogger;
         $this->platform = $config->platform;
+
+
     }
 
     public function start()
@@ -287,11 +292,7 @@ class Pool
         $queues = explode(',', $queues);
         $class = $this->config->workerClass;
         $worker = new $class($queues);
-        if ($this->config->logLevel === Configuration::LOG_VERBOSE) {
-            $worker->logLevel = \Resque_Worker::LOG_VERBOSE;
-        } elseif ($this->config->logLevel === Configuration::LOG_NORMAL) {
-            $worker->logLevel = \Resque_Worker::LOG_NORMAL;
-        }
+        $worker->setLogger($this->workLogger);
 
         return $worker;
     }

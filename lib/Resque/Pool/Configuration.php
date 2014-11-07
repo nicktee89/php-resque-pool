@@ -51,6 +51,14 @@ class Configuration
      * @param Logger
      */
     public $logger;
+     /**
+     * @param Work Logger
+     */
+    public $workLogger;
+    /**
+     * @param Work Logger
+     */
+    public $logpath = false;
     /**
      * @param integer self::LOG_*
      */
@@ -95,7 +103,7 @@ class Configuration
      * @param Logger|null       $logger   If not provided one will be instantiated
      * @param Platform|null     $platform If not provided one will be instantiated
      */
-    public function __construct($config = null, Logger $logger = null, Platform $platform = null)
+    public function __construct($config = null, Logger $logger = null, Platform $platform = null, WorkLogger $worklogger = null)
     {
         $this->loadEnvironment();
         $this->logger = $logger ?: new Logger($this->appName);
@@ -109,6 +117,8 @@ class Configuration
         } elseif ($config !== null) {
             throw new \InvalidArgumentException('Unknown $config argument passed');
         }
+
+        $this->workLogger = $workLogger ?: new WorkLogger(false, $this->logpath);
     }
 
     public function initialize()
@@ -126,6 +136,10 @@ class Configuration
             if (file_exists($require_file)) {
                 require_once $require_file;
             }
+        }
+
+         if (isset($this->queueConfig['log_path'])) {
+            $this->logpath = $this->queueConfig['log_path'];
         }
 
         if (isset($this->queueConfig['redis_backend'])) {
