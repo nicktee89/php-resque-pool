@@ -118,7 +118,7 @@ class Configuration
             throw new \InvalidArgumentException('Unknown $config argument passed');
         }
 
-        $this->workLogger = $workLogger ?: new WorkLogger(false, $this->logpath);
+        $this->workLogger = $worklogger ?: new WorkLogger(false, $this->logpath);
     }
 
     public function initialize()
