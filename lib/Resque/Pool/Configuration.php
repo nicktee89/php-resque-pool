@@ -222,7 +222,7 @@ class Configuration
     {
         if ($this->queueConfigFile) {
             $this->logger->log("Loading config file: {$this->queueConfigFile}");
-            Yaml::enablePhpParsing();
+            //Yaml::enablePhpParsing();
             try {
                 $this->queueConfig = Yaml::parse($this->queueConfigFile);
             } catch (ParseException $e) {
